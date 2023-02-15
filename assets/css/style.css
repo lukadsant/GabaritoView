@@ -1,0 +1,82 @@
+.btn-primary{
+    background-color: #219653;
+    border-color: #219653;
+    border-radius: 100px;
+    width: 139px;
+    height: 42px;
+}
+
+
+#cafe{
+    font-size: 15px;
+    font-style: normal;
+    font-family: Roboto;
+    font-weight: 400px;
+    font-stretch: normal;
+
+    display: flex;
+    padding: 4px 16px 0 16px;
+    position: relative;
+    align-self: stretch;
+    align-items: flex-start;
+    flex-shrink: 0;
+    border-color: transparent;
+}
+
+#cafe2{
+    font-size: 15px;
+    font-style: normal;
+    font-family: Roboto;
+    font-weight: 400px;
+    font-stretch: normal;
+
+    display: flex;
+    padding: 4px 16px 0 16px;
+    position: relative;
+    align-self: stretch;
+    align-items: flex-start;
+    flex-shrink: 0;
+    border-color: transparent;
+}
+
+
+.fa-sign-out-alt {
+    font-size: 1.2rem;
+}
+
+#cafe3{
+    font-size: 15px;
+    font-style: normal;
+    font-family: Roboto;
+    font-weight: 400px;
+    background-color: red;
+    font-stretch: normal;
+
+    display: flex;
+    padding: 4px 16px 0 16px;
+    position: relative;
+    align-self: stretch;
+    align-items: flex-start;
+    flex-shrink: 0;
+    border-color: transparent;
+}
+#spanmessage{
+    margin-top: 10px;
+    color: var(--dl-color-default-gray3);
+    bottom: -44px;
+    height: auto;
+
+    flex-grow: 0;
+    font-size: 14px;
+
+    align-self: auto;
+    font-style: Regular;
+    text-align: center;
+    font-family: Roboto;
+    font-weight: 400;
+    line-height: normal;
+    font-stretch: normal;
+    margin-right: 0;
+    margin-bottom: 0;
+    text-decoration: none;
+}

@@ -1,0 +1,328 @@
+{% extends 'base.html' %}
+{% block title %}My profile{% endblock %}
+
+{% load static %}
+{% load widget_tweaks %}
+
+{% block content %}
+
+<div class="col-12 p-3 col-md-8 col-lg-10 mx-auto pt-5">
+    <div class="w-100 article-title d-flex justify-content-between align-items-center">
+        <h2>Edit <span class="text-bold">profile</span></h2>
+    </div>
+    {% if messages %}
+    {% for message in messages %}
+    <div class="alert alert-{{ message.tags }} alert-dismissible fade show" role="alert" id="message">
+        {{ message }}
+        <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
+    </div>
+    {% endfor %}
+    {% endif %}
+
+    {% for error in field.errors %}
+    <p style="color: red">{{ error }}</p>
+    {% endfor %}
+
+    <form method="post" enctype="multipart/form-data">
+        {% csrf_token %}
+        {{ form.media }}
+
+        <section class="d-flex row">
+            <!-- PICTURE USER SECTION -->
+            <div class="col-12 pe-md-0 pe-3 col-md-4">
+                <fieldset>
+                    <h3>Picture</h3>
+
+                    <div class="form-floating mb-3">
+                        {% render_field form.picture|add_class:'form-control' placeholder=form.picture.label %}
+                        <label for="id_picture">Company Picture</label>
+                    </div>
+
+                    <div class="form-floating mb-3">
+                        {% render_field form.picture_description|add_class:'form-control' placeholder='Enter an image description' aria-label='Enter an image description' %}
+                        <label for="id_picture_description">Image description</label>
+                    </div>
+                </fieldset>
+                <hr class="divider">
+                <fieldset>
+                    <h3>Banner page</h3>
+                    <div class="form-floating mb-3">
+                        {% render_field form.banner|add_class:'form-control' placeholder=form.banner.label %}
+                        <label for="id_banner">Banner Picture</label>
+
+                    </div>
+
+                    <div class="form-floating mb-3">
+                        {% render_field form.banner_description|add_class:'form-control' placeholder='enter an image description' aria-label='enter an image description' %}
+                        <label for="id_banner_description">Banner Description</label>
+                    </div>
+                </fieldset>
+            </div>
+
+            <div class="col-12 pt-0 p-3 col-md-8">
+                <!-- Admin information -->
+                <fieldset class="mb-4">
+                    <h3>Profile Admin Information</h3>
+                    <div class="text-muted">Person described below is responsible for edit page profile</div>
+                    <div class="row">
+                        <div class="col-12">
+                            <div class="form-floating mb-3">
+                                {% render_field form.profile_manager|add_class:'form-control' placeholder='Enter the name of the person responsible for editing this profile' aria-label='Enter the full name of the person responsible for editing this profile' %}
+                                <label for="id_profile_manager">Admin name</label>
+                            </div>
+                        </div>
+                        <div class="col-12 col-md-6">
+                            <div class="form-floating mb-3">
+                                {% render_field form.email_manager|add_class:'form-control' placeholder='Enter the email address of the person responsible for editing this profile' aria-label='Enter the email address of the person responsible for editing this profile' %}
+                                <label for="id_email_manager">Admin Email</label>
+                                {{ form.email_manager.errors }}
+                            </div>
+                        </div>
+
+                        <div class="col-12 col-md">
+
+                            <div class="form-floating mb-3">
+                                {% render_field form.social_name|add_class:'form-control' placeholder='Enter the social name you want to be addressed by' aria-label='Enter the social name you want to be addressed by' %}
+                                <label for="id_social_name">Social Name</label>
+                            </div>
+                        </div>
+
+                        <div class="col-12  col-md-6">
+                            <div class="form-floating mb-3">
+                                {% render_field form.title_pronoun|add_class:'form-control' placeholder='Enter the Title and/or Pronoun you want to be addressed by. For Example Ms./She/Her' aria-label='Enter the Title and/or Pronoun you want to be addressed by. For Example Ms./She/Her' %}
+                                <label for="id_title_pronoun">Title and Pronoun</label>
+                            </div>
+                        </div>
+                        <div class="col-12 col-md">
+                            <div class="form-floating mb-3">
+                                {% render_field form.phone_manager|add_class:'form-control' placeholder='Enter the phone number of the person responsible for editing this profile' aria-label='Enter the phone number of the person responsible for editing this profile' %}
+                                <label for="id_phone_manager">Admin Phone Number</label>
+                            </div>
+                        </div>
+
+                        <div class="col-12">
+                            <div class="form-checkbox mb-3">
+                                {% render_field form.is_resp|add_class:'form-check-input' placeholder=form.is_resp.label %}
+                                <label class="form-check-label" for="id_is_resp">
+                                    I am responsible for the information contained in this profile
+                                </label>
+                                {{ form.is_resp.errors }}
+                            </div>
+                        </div>
+                    </div>
+
+
+                </fieldset>
+
+                <!-- About -->
+                <fieldset class="mb-4">
+                    <h3>About</h3>
+
+                    <div class="row">
+                        <div class="col-12">
+                            <div class="form-floating mb-3">
+                                {% render_field form.name|add_class:'form-control' placeholder='Company name' %}
+                                <label for="id_name">Company name</label>
+                            </div>
+                        </div>
+                        <div class="col-12 mb-3">
+                            <label for="">Company description:</label>
+                            <div class="form-floating mb-3">
+                                {% render_field form.company_description|add_class:'form-control' placeholder='Enter a brief description about your company' aria-label='Enter a brief description about your company' %}
+                                {{ form.company_description.errors }}
+                            </div>
+                        </div>
+
+                        <div class="col-12 col-md">
+                            <div class="form-floating mb-3">
+                                {% render_field form.email|add_class:'form-control' placeholder='Company email' %}
+                                <label for="id_email">Company email</label>
+                                {{ form.email.errors }}
+                            </div>
+                        </div>
+                        <div class="col-12 col-md">
+                            <div class="form-floating mb-3">
+                                {% render_field form.phone|add_class:'form-control' placeholder='Company phone number' %}
+                                <label for="id_phone">Company phone number</label>
+                            </div>
+                        </div>
+                        <div class="w-100"></div>
+                        <div class="col-12">
+                            <div class="form-floating mb-3">
+                                {% render_field form.company_size|add_class:'form-control' placeholder=form.company_size.label %}
+                                <label for="id_company_size">Company size</label>
+                            </div>
+                        </div>
+                    </div>
+
+                </fieldset>
+
+                <!-- Webpage and Social Media -->
+                <fieldset class="mb-4">
+                    <h3>Webpage and Social Media</h3>
+                    <div class="row">
+                        <div class="col-6">
+                            <div class="form-floating mb-3">
+                                {% render_field form.website|add_class:'form-control' placeholder='Insert the company’s webpage' %}
+                                <label for="id_website">Webpage</label>
+                            </div>
+                        </div>
+                        <div class="col-6">
+                            <div class="form-floating mb-3">
+                                {% render_field form.linkedin|add_class:'form-control' placeholder='Insert the company’s linkedin' %}
+                                <label for="id_linkedin">Linkedin</label>
+                            </div>
+                        </div>
+                        <div class="col-6">
+                            <div class="form-floating mb-3">
+                                {% render_field form.facebook|add_class:'form-control' placeholder='Insert the company’s facebook' %}
+                                <label for="id_facebook">Facebook</label>
+                            </div>
+                        </div>
+                        <div class="col-6">
+                            <div class="form-floating mb-3">
+                                {% render_field form.twitter|add_class:'form-control' placeholder='Insert the company’s twitter' %}
+                                <label for="id_twitter">Twitter</label>
+                            </div>
+                        </div>
+                        <div class="col-6">
+                            <div class="form-floating mb-3">
+                                {% render_field form.instagram|add_class:'form-control' placeholder='Insert the company’s instagram' %}
+                                <label for="id_instagram">Instagram</label>
+                            </div>
+                        </div>
+                        <div class="col-6">
+                            <div class="form-floating mb-3">
+                                {% render_field form.youtube|add_class:'form-control' placeholder='Insert the company’s youtube' %}
+                                <label for="id_youtube">Youtube</label>
+                            </div>
+                        </div>
+                    </div>
+                </fieldset>
+
+
+                <!-- Location -->
+                <fieldset class="mb-4">
+                    <h3>Location</h3>
+                    <div class="row">
+                        <div class="col-12">
+
+                            <div class="form-floating mb-3">
+                                {% render_field form.physical_address|add_class:'form-control' placeholder=form.physical_address.label %}
+                                <label for="id_physical_address">Physical address?</label>
+                            </div>
+                        </div>
+                        <div class="col-12">
+                            <div class="form-floating mb-3">
+                                {% render_field form.address|add_class:'form-control' placeholder='Enter your company address' aria-label='Enter your company address' %}
+                                <label for="id_address">Address</label>
+                            </div>
+                        </div>
+                        <div class="col-12">
+                            <div class="form-floating mb-3">
+                                {% render_field form.complement|add_class:'form-control' placeholder='Enter your company address complement' aria-label='Enter your company address complement' %}
+                                <label for="id_complement">Complement</label>
+                            </div>
+                        </div>
+                        <div class="col-12 col-md">
+                            <div class="form-floating mb-3">
+                                {% render_field form.country|add_class:'form-control' placeholder=form.country.label %}
+                                <label for="id_country">Country</label>
+                            </div>
+                        </div>
+                        <div class="col-12 col-md">
+                            <div class="form-floating mb-3">
+                                {% render_field form.city|add_class:'form-control' placeholder='Enter your company city' aria-label='Enter your company city' %}
+                                <label for="id_city">City</label>
+                            </div>
+                        </div>
+                        <div class="col-12 col-md">
+                            <div class="form-floating mb-3">
+                                {% render_field form.state|add_class:'form-control' placeholder='Enter your company state or province' aria-label='Enter your company state or province' %}
+                                <label for="id_state">State</label>
+                            </div>
+                        </div>
+                    </div>
+                </fieldset>
+
+                <!-- Responsibility Programs -->
+                <fieldset>
+                    <h3 class="h4">Responsibility Programs</h3>
+                    <p class="text-muted">Enter a brief description about your company’s Social Responsiblity Programs</p>
+
+                    <div class="form-floating mb-3">
+                        {% render_field form.social_resp|add_class:'form-control' placeholder=form.social_resp.label %}
+                        <label for="id_social_resp">{{ form.social_resp.label }}?</label>
+                    </div>
+
+                    <label for="">Social responsibility description:</label>
+
+                    <div class="form-floating mb-5">
+                        {% render_field form.social_resp_desc|add_class:'form-control' placeholder='Enter a brief description about your company Social Responsiblity Programs' %}
+                    </div>
+
+
+                    <p class="h4">Diversity and Inclusion</p>
+                    <p class="text-muted">Enter a brief description about your company’s Inclusive Initiatives for LGBTIQA+ and BAME diversity groups</p>
+                    <div class="form-floating mb-3">
+                        {% render_field form.diversity_commitee|add_class:'form-control' placeholder=form.diversity_commitee.label %}
+                        <label for="id_diversity_commitee">Diversity commitee?</label>
+                    </div>
+
+                    <label for="">Diversity commitee description:</label>
+                    <div class="form-floating mb-5">
+                        {% render_field form.diversity_commitee_desc|add_class:'form-control' placeholder='Enter a brief description about your company`s Inclusive Initiatives for LGBTIQA+ and BAME diversity groups' %}
+                    </div>
+
+
+                    <p class="h4">Inclusion of people with disabilities</p>
+                    <p class="text-muted">Enter a brief description about your company’s Inclusive Initiatives for people with Disabilities</p>
+                    <div class="form-floating mb-3">
+                        {% render_field form.inclusion_people|add_class:'form-control' placeholder=form.inclusion_people.label %}
+                        <label for="id_inclusion_people">{{ form.inclusion_people.label }}?</label>
+                    </div>
+
+                    <label for="id_inclusion_people_desc">{{ form.inclusion_people.label }} description:</label>
+                    <div class="form-floating mb-5">
+                        {% render_field form.inclusion_people_desc|add_class:'form-control' placeholder='Enter a brief description about your company’s Inclusive Initiatives for people with Disabilities' %}
+                    </div>
+
+                    <p class="h4">Environmental responsibility</p>
+                    <p class="text-muted">Enter a brief description about your company’s Environmental responsibility Initiatives</p>
+                    <div class="form-floating mb-3">
+                        {% render_field form.env_responsibility|add_class:'form-control' placeholder=form.env_responsibility.label %}
+                        <label for="id_env_responsibility">Environmental responsibility?</label>
+                    </div>
+                    
+                    <label for="id_env_responsibility_desc">Environmental responsibility description:</label>
+                    <div class="form-floating mb-5">
+                        {% render_field form.env_responsibility_desc|add_class:'form-control' placeholder='Enter a brief description about your company’s Environmental responsibility Initiatives' %}
+                    </div>
+
+
+                    <p class="h4">Other programs </p>
+                    <p class="text-muted">Enter a brief description about your company’s Other programs or actions of Inclusion and Diversity</p>
+                    <div class="form-floating mb-3">
+                        {% render_field form.other_programs|add_class:'form-control' placeholder=form.other_programs.label %}
+                        <label for="id_other_programs">Other programs?</label>
+                    </div>
+                    
+                    <label for="id_other_programs_desc">Other programs description:</label>
+                    <div class="form-floating mb-5">
+                        {% render_field form.other_programs_desc|add_class:'form-control' placeholder='Enter a brief description about your company’s Other programs or actions of Inclusion and Diversity' %}
+                    </div>
+
+
+                </fieldset>
+            </div>
+        </section>
+
+
+        <div class="d-flex align-items-center justify-content-center mt-4 mb-0">
+            <button type="submit" class="btn btn-primary mx-2"><i class="fas fa-save me-3"></i>Save profile</button>
+        </div>
+    </form>
+
+</div>
+
+{% endblock %}

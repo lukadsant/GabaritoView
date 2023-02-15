@@ -1,0 +1,78 @@
+{% extends 'base.html' %}
+{% block title %}Login{% endblock %}
+
+{% load static %}
+{% load widget_tweaks %}
+
+{% block content %}
+    <main class="form-user m-5">
+        <div class="row">
+            <div class="col-md-7 col-lg-7 col-12">
+                <img src="{% static 'img-form.png' %}" class="d-sm-none d-md-block" width="100%">
+            </div>
+            <div class="col-md-5 col-lg-5 col-12 position-relative">
+                <div class="p-3">
+
+                    {% if messages %}
+                        {% for message in messages %}
+                            <div class="alert alert-{{ message.tags }} alert-dismissible fade show">
+                                {{ message }}
+                                <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
+                            </div>
+                        {% endfor %}
+                    {% endif %}
+
+                    <fieldset class="p-3 mt-3">
+                        <form action="{% url 'logout' %}" method="post">
+                            {% csrf_token %}
+                            <div class="d-flex align-items-right justify-content-end mt-4 mb-0">
+                                <input type="submit" class="btn btn" value="Encerrar sessão">
+                            </div>
+                        </form>
+                        <p><img src="{% static 'logo.png' %}" class="rounded mx-auto d-block"></p>
+                        <h3 role="heading" aria-level="2" class="text-center mb-3 mt-3">Consulta ao SQL Server</h3>
+                        <p class="text-center font-weight-light mb-5">Para consultar basta adicionar o curso e o
+                            código da disciplina</p>
+                        <form method="post">
+                            {% csrf_token %}
+                            {% if form.errors %}
+                            <div class="alert alert-danger d-flex flex-column align-items-start" role="alert">
+                                <div class="fw-bold mb-3"><i class="fas fa-exclamation-triangle me-3"></i> ERROR</div>
+                                <div id="form_errors">
+                                    {% for key, value in form.errors.items %}
+                                    {{ value }}
+                                    {% endfor %}
+                                </div>
+                            </div>
+                            {% endif %}
+                            <!-- Material input -->
+                            <div class="md-form form-group mt-5">
+                                <label id='cafe2' for="formGroupExampleInputMD">Escolha o curso</label>
+                                {% render_field form.curso|add_class:'form-control' placeholder=form.curso.label %}
+                              <label id='cafe' for="formGroupExampleInputMD">Alguma situação</label>
+                            </div>
+                            <!-- Material input -->
+                            <div class="md-form form-group mt-5">
+      
+                              <label id='cafe2' for="formGroupExampleInput2MD">Codígo da disciplina</label>
+                              {% render_field form.disciplina|add_class:'form-control' placeholder=form.disciplina.label %}
+                              <label id='cafe' for="formGroupExampleInput2MD">Alguma situação</label>
+                            </div>
+                              <div class="d-flex align-items-center justify-content-center mt-4 mb-0">
+                                  <input type="submit" class="btn btn-primary" value="Consultar">
+                              </div>
+      
+      
+                              <p id='spanmessage'class="text-center">Faculdade Pernambucana de Saúde<br>
+                              Caso não consiga acessar, envie um email para: dario@fps.edu.br</p>
+      
+
+                        </form>
+
+                    </fieldset>
+
+                </div>
+            </div>
+        </div>
+    </main>
+{% endblock %}
